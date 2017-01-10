@@ -2,16 +2,17 @@
 
 import React, { Component } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
-import ScarletScreen from './components/ScarletScreen';
+import Landing from './components/Landing';
 import GrayScreen from './components/GrayScreen';
 
 const App = () => {
   return (
     <Router>
       <Scene key="root">
-        <Scene key="scarlet"
-          component={ScarletScreen}
-          title="Scarlet"
+        <Scene key="landing"
+          component={Landing}
+          title="Landing"
+          hideNavBar
           initial
         />
         <Scene

@@ -2,34 +2,32 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
+  Picker,
   View,
-  Button,
   TouchableHighlight
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import _ from 'lodash';
+
+class Landing extends Component {
+
+  constructor(props) {
+   super(props);
+  }
+
+  render () {
 
 
-
-const Landing = () => {
-
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>TARGET MVD</Text>
-      <Text style={styles.subTitle}>Find people near you & Connect</Text>
-      <Text style={styles.description}>
-        Create a target wherever on the map, specify
-        your interest: Travel, Dating, Music, etc and started
-        connecting with others who share your interest.
-      </Text>
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>SIGN UP</Text>
 
 
-      <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
-        <Text style={styles.buttonText}>SIGN IN</Text>
-      </TouchableHighlight>
-      <Button style={styles.description} onPress={Actions.signup} title='Sign Up'  />
-    </View>
-  )
+        <TouchableHighlight style={styles.button} onPress={() => this.props.onSubmitLogin(this.refs.form.getValue())} underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>SIGN IN</Text>
+        </TouchableHighlight>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -59,6 +57,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   button: {
+    zIndex: -1000,
     height: 36,
     width: 150,
     backgroundColor: 'black',

@@ -1,7 +1,7 @@
 import mirrorCreator from 'mirror-creator';
 
-export const app = mirrorCreator([
-  'SOME_ACTION_TYPE',
-  'ANOTHER_ACTION_TYPE',
-  'ONE_MORE_ACTION_TYPE',
+export const signup = mirrorCreator([
+  'SIGNUP_REQUEST',
+  'SIGNUP_SUCCESS',
+  'SIGNUP_FAILURE',
 ]);

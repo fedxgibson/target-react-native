@@ -1,27 +1,33 @@
 // app/index.js
-
+import 'babel-polyfill'
 import React, { Component } from 'react';
-import { Router, Scene } from 'react-native-router-flux';
-import Landing from './components/Landing';
-import GrayScreen from './components/GrayScreen';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+/*Middleware*/
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
+/*Reducers*/
+import reducers from './reducers';
+/*Routes*/
+import {scenes} from './scenes';
+import { connect } from 'react-redux';
+import { Router } from 'react-native-router-flux';
+
+const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
+
+const RouterWithRedux = connect()(Router);
+
+const store = compose(
+  applyMiddleware(
+    thunkMiddleware,
+    loggerMiddleware)
+)(createStore)(reducers);
 
 const App = () => {
   return (
-    <Router>
-      <Scene key="root">
-        <Scene key="landing"
-          component={Landing}
-          title="Landing"
-          hideNavBar
-          initial
-        />
-        <Scene
-          key="gray"
-          component={GrayScreen}
-          title="Gray"
-        />
-      </Scene>
-    </Router>
+    <Provider store={store}>
+      <RouterWithRedux scenes={scenes}/>
+    </Provider>
   );
 }
 

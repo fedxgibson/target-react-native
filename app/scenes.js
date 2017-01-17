@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Actions, Scene } from 'react-native-router-flux';
-import Landing from './components/Landing';
+import Landing from './containers/Landing';
 import Signup from './containers/Signup';
 
 export const scenes = Actions.create(

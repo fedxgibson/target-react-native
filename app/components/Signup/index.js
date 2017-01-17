@@ -2,29 +2,23 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  Picker,
   View,
   TouchableHighlight
 } from 'react-native';
 import _ from 'lodash';
+import SignupForm from './signupForm';
 
-class Landing extends Component {
+class Signup extends Component {
 
   constructor(props) {
    super(props);
   }
 
   render () {
-
-
     return (
       <View style={styles.container}>
         <Text style={styles.title}>SIGN UP</Text>
-
-
-        <TouchableHighlight style={styles.button} onPress={() => this.props.onSubmitLogin(this.refs.form.getValue())} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>SIGN IN</Text>
-        </TouchableHighlight>
+        <SignupForm onSubmit={this.props.onSubmitSignup} />
       </View>
     )
   }
@@ -35,9 +29,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'stretch',
-    padding: 40,
-    paddingTop: 100,
-    paddingBottom: 100
+    paddingRight: 80,
+    paddingLeft: 80,
   },
   title: {
     fontWeight: '700',
@@ -55,21 +48,8 @@ const styles = StyleSheet.create({
   description: {
     lineHeight: 25,
     marginBottom: 10
-  },
-  button: {
-    zIndex: -1000,
-    height: 36,
-    width: 150,
-    backgroundColor: 'black',
-    justifyContent: 'center',
-    alignSelf: 'center'
- },
-  buttonText: {
-    fontSize: 13,
-    color: 'white',
-    alignSelf: 'center'
- }
+  }
 });
 
 
-export default Landing;
+export default Signup;

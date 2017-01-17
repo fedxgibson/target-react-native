@@ -4,8 +4,10 @@ import Signup from '../../components/Signup';
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmitLogin: (data) => {
-      dispatch(SignupAction(data))
+    onSubmitSignup: (data) => {
+      console.log(data);
+      
+      // dispatch(SignupAction(data))
     }
   }
 }

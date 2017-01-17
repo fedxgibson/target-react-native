@@ -6,30 +6,34 @@ import {
   Button,
   TouchableHighlight
 } from 'react-native';
+import LoginForm from './loginForm'
 import { Actions } from 'react-native-router-flux';
 
 
 
-const Landing = () => {
+class Landing extends Component {
 
+  constructor(props) {
+   super(props);
+  }
+  
+  render () {
+    const { onSubmitLogin, login } = this.props;
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>TARGET MVD</Text>
-      <Text style={styles.subTitle}>Find people near you & Connect</Text>
-      <Text style={styles.description}>
-        Create a target wherever on the map, specify
-        your interest: Travel, Dating, Music, etc and started
-        connecting with others who share your interest.
-      </Text>
-
-
-      <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
-        <Text style={styles.buttonText}>SIGN IN</Text>
-      </TouchableHighlight>
-      <Button style={styles.description} onPress={Actions.signup} title='Sign Up'  />
-    </View>
-  )
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>TARGET MVD</Text>
+        <Text style={styles.subTitle}>Find people near you & Connect</Text>
+        <Text style={styles.description}>
+          Create a target wherever on the map, specify
+          your interest: Travel, Dating, Music, etc and started
+          connecting with others who share your interest.
+        </Text>
+        <LoginForm onSubmit={onSubmitLogin} />
+        <Button style={styles.signupButton} onPress={Actions.signup} title='Sign Up'/>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -37,9 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'stretch',
-    padding: 40,
-    paddingTop: 100,
-    paddingBottom: 100
+    padding: 40
   },
   title: {
     fontWeight: '700',
@@ -57,6 +59,9 @@ const styles = StyleSheet.create({
   description: {
     lineHeight: 25,
     marginBottom: 10
+  },
+  signupButton: {
+    marginTop: 50
   },
   button: {
     height: 36,

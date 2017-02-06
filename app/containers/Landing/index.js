@@ -2,17 +2,21 @@ import { connect } from 'react-redux';
 import LoginAction from '../../actions/login';
 import Landing from '../../components/Landing';
 
+const mapStateToProps = (store) => {
+  return {
+    user: store.user.user
+  }
+}
 const mapDispatchToProps = (dispatch) => {
   return {
     onSubmitLogin: (data) => {
-      console.log(data)
-      // dispatch(LoginAction(data))
+      dispatch(LoginAction(data))
     }
   }
 }
 
 const container = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Landing)
 

@@ -3,7 +3,6 @@ import LoginActions from '../actions/signup';
 const login = (state = {}, action) => {
   switch (action.type) {
     case LoginActions.LOGIN_REQUEST:
-      debugger;
       return {
         ...state,
       }

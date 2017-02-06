@@ -1,4 +1,5 @@
 import { ActionConst } from 'react-native-router-flux';
+import { signup as SignupConst } from '../actions/actionsTypes';
 
 const initialState = {
   scene: {},

@@ -6,8 +6,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSubmitSignup: (data) => {
       console.log(data);
-      
-      // dispatch(SignupAction(data))
+
+      dispatch(SignupAction(data))
     }
   }
 }

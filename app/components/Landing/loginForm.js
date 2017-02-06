@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field} from 'redux-form';
 import { View, TouchableHighlight, StyleSheet, Text, TextInput } from 'react-native';
 
-const textInput =  ({input, ...rest}) => <TextInput onChangeText={input.onChange} style={styles.input} />
-
-function some(props) {
-  console.log('do something');
-  console.log(props);
-};
+const textInput =  ({input, ...rest}) => <TextInput autoCapitalize='none' onChangeText={input.onChange} style={styles.input} />
 
 const LoginForm = (props) => {
   const { handleSubmit } = props;

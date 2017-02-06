@@ -1,35 +1,38 @@
 import API from '../lib/api';
 import { signup } from './actionsTypes';
+import { appActions } from './app';
 
 function request() {
   return {
     type: signup.SIGNUP_REQUEST,
-    loading: true
   }
 }
 
-function success() {
+function success(data) {
   return {
     type: signup.SIGNUP_SUCCESS,
-    loading: false
+    data: data
   }
 }
 
 function failure() {
   return {
     type: signup.SIGNUP_FAILURE,
-    loading: false
   }
 }
 
 export default function action(data) {
   return dispatch => {
-    dispatch(request())
-    return API.post('/users', { users: data })
-      .then(json =>{
-        dispatch(success())}
-      ).catch(error => {
-        dispatch(failure())
+    dispatch(request());
+    dispatch(appActions.request());
+
+    return API.post('users', { user: data })
+      .then(data =>{
+        dispatch(success(data));
+        dispatch(appActions.success());
+      }).catch(error => {
+        dispatch(failure());
+        dispatch(appActions.failure());
       });
   }
 }

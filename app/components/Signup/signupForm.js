@@ -4,7 +4,7 @@ import { View, TouchableHighlight, StyleSheet, Text, TextInput, PickerIOS } from
 import ModalPicker from 'react-native-modal-picker'
 
 
-const textInput =  ({input, ...rest}) => <TextInput onChangeText={input.onChange} style={styles.input} />
+const textInput =  ({input, ...rest}) => <TextInput autoCapitalize='none' onChangeText={input.onChange} style={styles.input} />
 
 const pickerInput = ({ input: { onChange, ...restInput }}) => {
   const genders = [{
@@ -26,54 +26,59 @@ const pickerInput = ({ input: { onChange, ...restInput }}) => {
   )
 }
 
-class SignupForm extends Component {
-  render() {
-    const { handleSubmit } = this.props;
-    return (
-      <View style={styles.container} >
-        <View style={styles.formGroup}>
-          <Text style={styles.label}>NAME</Text>
-          <Field style={styles.formGroup} name="name" component={textInput}/>
-        </View>
+const SignupForm = ({ handleSubmit, onSubmit }) => {
 
-        <View style={styles.formGroup}>
-          <Text style={styles.label}>EMAIL</Text>
-          <Field style={styles.formGroup} name="email" component={textInput}/>
-        </View>
-
-        <View style={styles.formGroup}>
-          <Text style={styles.label}>PASSWORD</Text>
-          <Field style={styles.formGroup} name="password" component={textInput}/>
-        </View>
-
-        <View style={styles.formGroup}>
-          <Text style={styles.label}>CONFIRM PASSWORD</Text>
-          <Field style={styles.formGroup} name="confirmPassword" component={textInput}/>
-        </View>
-
-        <View style={styles.formGroup}>
-          <Text style={styles.label}>GENDER</Text>
-          <Field style={styles.formGroup} name="gender" component={pickerInput}/>
-        </View>
-
-        <View style={styles.formGroup}>
-          <TouchableHighlight style={styles.button} onPress={handleSubmit} underlayColor='#99d9f4'>
-            <Text style={styles.buttonText}>SIGN IN</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
-    );
+  const transformData = (data) =>  {
+    if ( data && data.gender){
+      data.gender = data.gender.key;
+    }
+    onSubmit(data);
   }
+
+  return (
+    <View style={styles.container} >
+      <View style={styles.formGroup}>
+        <Text style={styles.label}>NAME</Text>
+        <Field style={styles.formGroup} name="name" component={textInput}/>
+      </View>
+
+      <View style={styles.formGroup}>
+        <Text style={styles.label}>EMAIL</Text>
+        <Field style={styles.formGroup} name="email" component={textInput}/>
+      </View>
+
+      <View style={styles.formGroup}>
+        <Text style={styles.label}>PASSWORD</Text>
+        <Field style={styles.formGroup} name="password" component={textInput}/>
+      </View>
+
+      <View style={styles.formGroup}>
+        <Text style={styles.label}>CONFIRM PASSWORD</Text>
+        <Field style={styles.formGroup} name="confirmPassword" component={textInput}/>
+      </View>
+
+      <View style={styles.formGroup}>
+        <Text style={styles.label}>GENDER</Text>
+        <Field style={styles.formGroup} name="gender" component={pickerInput}/>
+      </View>
+
+      <View style={styles.formGroup}>
+        <TouchableHighlight style={styles.button} onPress={handleSubmit(transformData)} underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>SIGN UP</Text>
+        </TouchableHighlight>
+      </View>
+    </View>
+  );
 }
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     flexDirection: 'column',
     alignItems: 'stretch',
     paddingTop: 50,
-    paddingBottom: 30
   },
   formGroup: {
     flex: 1,
@@ -128,5 +133,5 @@ const styles = StyleSheet.create({
 
 // Decorate the form component
 export default reduxForm({
-  form: 'login' // a unique name for this form
+  form: 'signup' // a unique name for this form
 })(SignupForm);

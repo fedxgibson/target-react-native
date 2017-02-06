@@ -3,15 +3,16 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableHighlight
+  Button
 } from 'react-native';
 import _ from 'lodash';
 import SignupForm from './signupForm';
+import { Actions } from 'react-native-router-flux';
 
 class Signup extends Component {
 
   constructor(props) {
-   super(props);
+    super(props);
   }
 
   render () {
@@ -19,6 +20,7 @@ class Signup extends Component {
       <View style={styles.container}>
         <Text style={styles.title}>SIGN UP</Text>
         <SignupForm onSubmit={this.props.onSubmitSignup} />
+        <Button onPress={Actions.landing} title='Log In'/>
       </View>
     )
   }
@@ -31,6 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     paddingRight: 80,
     paddingLeft: 80,
+    paddingBottom: 40
   },
   title: {
     fontWeight: '700',

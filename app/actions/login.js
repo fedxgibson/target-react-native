@@ -1,35 +1,38 @@
 import API from '../lib/api';
 import { login } from './actionsTypes';
+import { appActions } from './app';
 
 function request() {
   return {
-    type: login.LOGIN_REQUEST,
-    loading: true
+    type: login.LOGIN_REQUEST
   }
 }
 
-function success() {
+function success(data) {
   return {
     type: login.LOGIN_SUCCESS,
-    loading: false
+    data
   }
 }
 
 function failure() {
   return {
-    type: login.LOGIN_FAILURE,
-    loading: false
+    type: login.LOGIN_FAILURE
   }
 }
 
 export default function action(data) {
   return dispatch => {
-    dispatch(request())
-    return API.post('/users', { user: data })
+    dispatch(request());
+    dispatch(appActions.request());
+    return API.post('users/sign_in', { user: data })
       .then(json => {
-        dispatch(success())}
+        dispatch(success(json));
+        dispatch(appActions.success());
+      }
       ).catch(error => {
-        dispatch(failure())
+        dispatch(failure());
+        dispatch(appActions.failure());
       });
   }
 }

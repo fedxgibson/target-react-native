@@ -1,4 +1,4 @@
-import { signup, login } from '../actions/actionsTypes';
+import { signup, login, logout } from '../actions/actionsTypes';
 
 
 const user = (state = {}, action) => {
@@ -13,6 +13,11 @@ const user = (state = {}, action) => {
         ...state,
         user: action.data
       }
+      case logout.LOG_OUT_SUCCESS:
+        return {
+          ...state,
+          user: null
+        }
     default:
       return state
   }

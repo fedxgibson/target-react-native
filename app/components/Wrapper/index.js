@@ -11,6 +11,18 @@ import Drawer from 'react-native-drawer';
 import { Actions, DefaultRenderer } from 'react-native-router-flux';
 
 export default class extends Component {
+  componentWillMount() {
+    if(!this.props.user.user){
+      Actions.pop();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(!this.props.user.user){
+      Actions.landing();
+    }
+  }
+
   render(){
     const state = this.props.navigationState;
     const children = state.children;

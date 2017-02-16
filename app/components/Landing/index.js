@@ -12,23 +12,14 @@ import API from '../../lib/api'
 
 class Landing extends Component {
 
-  constructor(props) {
-    super(props);
-    if(props.user){
-      API.API_TOKEN = props.token;
-      Actions.main();
-    }
-  }
-
-  componentWillUpdate(prevState) {
-    if(prevState.user) {
-      API.API_TOKEN = prevState.token;
-      Actions.main();
+  componentWillMount() {
+    if(this.props.user && this.props.user.user){
+      Actions.app();
     }
   }
 
   render () {
-    const { onSubmitLogin, login } = this.props;
+    const { onSubmitLogin } = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>TARGET MVD</Text>
@@ -41,7 +32,6 @@ class Landing extends Component {
         <LoginForm onSubmit={onSubmitLogin} />
         <Button style={styles.signupButton} onPress={Actions.signup} title='Sign Up'/>
         <Button style={styles.signupButton} onPress={Actions.app} title='Main'/>
-
       </View>
     )
   }

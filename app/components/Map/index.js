@@ -13,6 +13,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import MapView, { MAP_TYPES } from 'react-native-maps';
 import TargetSteps from './TargetSteps';
+import makeCancelable from '../../lib/cancelablePromise';
 
 const { width, height } = Dimensions.get('window');
 
@@ -48,13 +49,21 @@ export default class extends Component {
   }
 
   componentDidMount() {
-    this.getUserPosition({enableHighAccuracy: true, timeout: 20000, maximumAge: 1000})
-      .then((position) => {
-        let {coords: { latitude, longitude, ...rest }} = position;
-        let region = { ...this.state.region, latitude: latitude, longitude: longitude };
-        this.setState({...this.state, region });
-        this.refs.map.animateToRegion(region);
-      }).catch((error) => alert(error));
+    const positionPromise = this.getUserPosition({enableHighAccuracy: true, timeout: 20000, maximumAge: 1000})
+    this.cancelablePositionPromise = makeCancelable(positionPromise);
+    this.cancelablePositionPromise.promise
+    .then((position) => {
+      let {coords: { latitude, longitude, ...rest }} = position;
+      let region = { ...this.state.region, latitude: latitude, longitude: longitude };
+      this.setState({...this.state, region });
+      this.refs.map.animateToRegion(region);
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
+
+  componentWillUnmount() {
+    this.cancelablePositionPromise.cancel();
   }
 
   getUserPosition(options) {

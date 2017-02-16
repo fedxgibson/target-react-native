@@ -3,22 +3,22 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  TouchableHighlight
 } from 'react-native';
 import _ from 'lodash';
 import ProfileForm from './profileForm';
 import { Actions } from 'react-native-router-flux';
 
 class Profile extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
   render () {
     return (
       <View style={styles.container}>
-        <ProfileForm onSubmit={this.props.onSubmitSignup} />
+        <ProfileForm onSubmit={this.props.onUpdateProfile} initialValues={this.props.userData.user}/>
+
+        <TouchableHighlight style={styles.button} onPress={this.props.onLogOut} underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>LOG OUT</Text>
+        </TouchableHighlight>
       </View>
     )
   }
@@ -50,7 +50,19 @@ const styles = StyleSheet.create({
   description: {
     lineHeight: 25,
     marginBottom: 10
-  }
+  },
+  button: {
+    height: 39,
+    alignSelf: 'stretch',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: 'black'
+  },
+  buttonText: {
+    fontSize: 13,
+    color: 'white',
+    alignSelf: 'center'
+ }
 });
 
 export default Profile;

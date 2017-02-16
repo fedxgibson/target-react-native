@@ -1,6 +1,6 @@
 import { app as appConst } from '../actions/actionsTypes';
 
-const app = (state = {}, action) => {
+const app = (state = { isLoading: false}, action) => {
   switch (action.type) {
     case appConst.APP_REQUEST:
       return {

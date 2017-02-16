@@ -1,5 +1,4 @@
 // app/index.js
-import 'babel-polyfill'
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -19,22 +18,65 @@ import {
 } from 'react-native';
 import {persistStore, autoRehydrate} from 'redux-persist'
 import {AsyncStorage} from 'react-native'
+import API from './lib/api'
 
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
 const RouterWithRedux = connect()(Router);
-const store = compose(
-  applyMiddleware(
-    thunkMiddleware,
-    loggerMiddleware)
-)(createStore, {
-  isLoading: false
-},autoRehydrate())(reducers);
-persistStore(store, {storage: AsyncStorage});
 
-class App extends Component {
-  render() {
+
+
+
+
+async function configureStore(store) {
+  const promise = new Promise((resolve, reject) => {
+    try {
+
+
+      persistStore(store, {storage: AsyncStorage}, () =>{
+        resolve(store);
+         API.setStore(store);
+         console.log('vavaa')
+
+       });
+
+    } catch (e) {
+      reject(e);
+    }
+  });
+  return await promise;
+}
+
+function initialize () {
+  try{
+    const store = createStore(
+      reducers,
+      undefined,
+      compose(
+        autoRehydrate(),
+        applyMiddleware(
+          thunkMiddleware,
+          loggerMiddleware)
+      )
+    );
+    configureStore(store);
+    return store;
+  }catch(e){
+        console.log('caught error', e);
+        // Handle exceptions
+    }
+}
+
+export class App extends Component {
+
+
+  componentWillMount () {
+    this.store = initialize();
+    debugger;
+  }
+
+  render () {
     return (
-      <Provider store={store}>
+      <Provider store={this.store}>
         <View style= {styles.container}>
           <RouterWithRedux scenes={scenes}/>
           <Loading/>
@@ -51,5 +93,3 @@ const styles = StyleSheet.create({
     alignItems: 'stretch'
   }
 });
-
-export default App;

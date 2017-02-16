@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    isLoading: state.app.isLoading
+    isLoading: false
   }
 }
 

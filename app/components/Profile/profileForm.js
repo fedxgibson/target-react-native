@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { reduxForm, Field} from 'redux-form';
 import { View, TouchableHighlight, StyleSheet, Text, TextInput, Image } from 'react-native';
 
-const textInput =  ({input, ...rest}) => <TextInput autoCapitalize='none' onChangeText={input.onChange} style={styles.input} />
+const textInput =  ({input, ...rest}) => {
+  return <TextInput autoCapitalize='none' value={input.value} onChangeText={input.onChange} style={styles.input} />
+}
 
-const ProfileForm = ({ handleSubmit, onSubmit }) => {
+const ProfileForm = ({ handleSubmit }) => {
 
   return (
     <View style={styles.container} >
@@ -98,5 +100,5 @@ const styles = StyleSheet.create({
 
 // Decorate the form component
 export default reduxForm({
-  form: 'signup' // a unique name for this form
+  form: 'profile' // a unique name for this form
 })(ProfileForm);

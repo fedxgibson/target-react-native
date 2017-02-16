@@ -3,6 +3,7 @@ import Wrapper from '../../components/Wrapper';
 
 const mapStateToProps = (store) => {
   return {
+    user: store.user
   }
 }
 

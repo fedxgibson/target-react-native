@@ -17,16 +17,30 @@ export default class API {
     return headers;
   }
 
+  static setStore(store) {
+    this.store = store;
+  }
+
   static set API_TOKEN (token) {
     this.token = token;
   }
 
   static get API_TOKEN () {
-    return this.token;
+    if(!this.store) return;
+    if(!this.store.user) return;
+    return this.store.getState().user.token;
   }
 
   static post(url, data, options) {
     return this.fetchJSON(this.request('POST', url, data));
+  }
+
+  static put(url, data, options) {
+    return this.fetchJSON(this.request('PUT', url, data));
+  }
+
+  static delete(url, data, options) {
+    return this.fetchJSON(this.request('DELETE', url));
   }
 
   static request(method, url, data = {}) {

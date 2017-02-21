@@ -20,7 +20,7 @@ import {persistStore, autoRehydrate} from 'redux-persist'
 import {AsyncStorage} from 'react-native'
 import API from './lib/api'
 
-const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
+const loggerMiddleware = createLogger({ predicate: () => __DEV__ });
 const RouterWithRedux = connect()(Router);
 
 
@@ -32,7 +32,7 @@ async function configureStore(store) {
     try {
 
 
-      persistStore(store, {storage: AsyncStorage}, () =>{
+      persistStore(store, { storage: AsyncStorage }, () =>{
         resolve(store);
          API.setStore(store);
          console.log('vavaa')
@@ -71,7 +71,6 @@ export class App extends Component {
 
   componentWillMount () {
     this.store = initialize();
-    debugger;
   }
 
   render () {

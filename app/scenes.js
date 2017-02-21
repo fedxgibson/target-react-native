@@ -6,6 +6,8 @@ import Wrapper from './containers/Wrapper';
 import Main from './containers/Main';
 import Chat from './components/Chat';
 import Profile from './containers/Profile';
+import Initialization from './containers/Initialization';
+
 import Historial from './components/Historial';
 
 import { connect } from 'react-redux';
@@ -19,10 +21,16 @@ export const scenes = Actions.create(
     >
     <Scene
       hideNavBar
+      key="initialization"
+      component={Initialization}
+      title="Landing"
+      initial
+    />
+    <Scene
+      hideNavBar
       key="landing"
       component={Landing}
       title="Landing"
-      initial
     />
     <Scene
       key="signup"

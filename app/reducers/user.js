@@ -18,6 +18,12 @@ const user = (state = {}, action) => {
           ...state,
           user: null
         }
+    case "persist/REHYDRATE":
+    debugger;
+      return {
+        ...state,
+        user: action.payload.user.user
+      }
     default:
       return state
   }
